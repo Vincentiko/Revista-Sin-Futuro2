@@ -83,7 +83,7 @@ export const PoemasPage = () => {
             {/* Logo */}
             <a className="navbar-brand d-flex align-items-center" href="/">
               <img
-                src="/assets/rev.png"
+                src="/public/rev.png"
                 alt="Logo Empresa"
                 style={{ marginRight: '10px', maxHeight: '30px' }}
               />

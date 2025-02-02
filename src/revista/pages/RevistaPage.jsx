@@ -45,7 +45,7 @@ export const RevistaPage = () => {
             {/* Logo */}
             <a className="navbar-brand d-flex align-items-center" href="/">
               <img
-                src="/assets/rev.png"
+                src="/public/rev.png"
                 alt="Logo Empresa"
                 style={{ marginRight: '10px', maxHeight: '30px' }}
               />
@@ -143,13 +143,13 @@ export const RevistaPage = () => {
             <div className="card custom-card animate__animated animate__bounceIn">
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img
-                  src="/assets/noticias.jpg" 
+                  src="/public/noticias.jpg" 
                   alt="Logo Empresa"
                   style={{ marginTop: '10px' ,maxWidth: '500px', maxHeight: '200px', width: 'auto', height: 'auto' }}
                 />
               </div>
               <div className="card-body text-center">
-                <a className="card-title" href="/noticias">
+                <a className="card-title" src="/public/noticias.jpg">
                   Noticias
                 </a>
                   <p className="card-text">Mantente al día con las últimas novedades en Chile.</p>
@@ -161,13 +161,13 @@ export const RevistaPage = () => {
             <div className="card custom-card animate__animated animate__bounceIn">
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img
-                  src="/assets/poesia.jpg" 
+                  src="/public/poesia.jpg" 
                   alt="Logo Empresa"
                   style={{ marginTop: '10px' ,maxWidth: '500px', maxHeight: '200px', width: 'auto', height: 'auto' }}
                 />
               </div>
               <div className="card-body text-center">
-                <a className="card-title" href="/poemas">
+                <a className="card-title" href="/poesia.jpg">
                   Poemas
                 </a>
                 <p className="card-text">Explora la belleza de las palabras.</p>
@@ -179,7 +179,7 @@ export const RevistaPage = () => {
             <div className="card custom-card animate__animated animate__bounceIn">
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img
-                  src="/assets/eventos.png" // Cambia esta URL por la imagen de tu empresa
+                  src="/public/eventos.png" // Cambia esta URL por la imagen de tu empresa
                   alt="Logo Empresa"
                   style={{ marginTop: '10px' ,maxWidth: '500px', maxHeight: '200px', width: 'auto', height: 'auto' }}
                 />
@@ -210,13 +210,13 @@ export const RevistaPage = () => {
               </div>
               <div className="carousel-inner">
                 <div className="carousel-item active">
-                  <img src="/assets/que linda que estas.jpg" className="d-block w-100" alt="Primera imagen" />
+                  <img src="/public/que linda que estas.jpg" className="d-block w-100" alt="Primera imagen" />
                 </div>
                 <div className="carousel-item">
-                  <img src="/assets/que linda que estas.jpg" className="d-block w-100" alt="Segunda imagen" />
+                  <img src="/public/que linda que estas.jpg" className="d-block w-100" alt="Segunda imagen" />
                 </div>
                 <div className="carousel-item">
-                  <img src="/assets/que linda que estas.jpg" className="d-block w-100" alt="Tercera imagen" />
+                  <img src="/public/que linda que estas.jpg" className="d-block w-100" alt="Tercera imagen" />
                 </div>
               </div>
               <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
