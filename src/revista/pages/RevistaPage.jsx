@@ -45,7 +45,7 @@ export const RevistaPage = () => {
             {/* Logo */}
             <a className="navbar-brand d-flex align-items-center" href="/">
               <img
-                src="/public/rev.png"
+                src="/rev.png"
                 alt="Logo Empresa"
                 style={{ marginRight: '10px', maxHeight: '30px' }}
               />
@@ -143,7 +143,7 @@ export const RevistaPage = () => {
             <div className="card custom-card animate__animated animate__bounceIn">
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img
-                  src="/public/noticias.jpg" 
+                  src="/noticias.jpg" 
                   alt="Logo Empresa"
                   style={{ marginTop: '10px' ,maxWidth: '500px', maxHeight: '200px', width: 'auto', height: 'auto' }}
                 />
@@ -161,7 +161,7 @@ export const RevistaPage = () => {
             <div className="card custom-card animate__animated animate__bounceIn">
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img
-                  src="/public/poesia.jpg" 
+                  src="/poesia.jpg" 
                   alt="Logo Empresa"
                   style={{ marginTop: '10px' ,maxWidth: '500px', maxHeight: '200px', width: 'auto', height: 'auto' }}
                 />
@@ -179,7 +179,7 @@ export const RevistaPage = () => {
             <div className="card custom-card animate__animated animate__bounceIn">
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img
-                  src="/public/eventos.png" // Cambia esta URL por la imagen de tu empresa
+                  src="/eventos.png" // Cambia esta URL por la imagen de tu empresa
                   alt="Logo Empresa"
                   style={{ marginTop: '10px' ,maxWidth: '500px', maxHeight: '200px', width: 'auto', height: 'auto' }}
                 />
@@ -210,13 +210,13 @@ export const RevistaPage = () => {
               </div>
               <div className="carousel-inner">
                 <div className="carousel-item active">
-                  <img src="/public/que linda que estas.jpg" className="d-block w-100" alt="Primera imagen" />
+                  <img src="/que linda que estas.jpg" className="d-block w-100" alt="Primera imagen" />
                 </div>
                 <div className="carousel-item">
-                  <img src="/public/que linda que estas.jpg" className="d-block w-100" alt="Segunda imagen" />
+                  <img src="/que linda que estas.jpg" className="d-block w-100" alt="Segunda imagen" />
                 </div>
                 <div className="carousel-item">
-                  <img src="/public/que linda que estas.jpg" className="d-block w-100" alt="Tercera imagen" />
+                  <img src="/que linda que estas.jpg" className="d-block w-100" alt="Tercera imagen" />
                 </div>
               </div>
               <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
