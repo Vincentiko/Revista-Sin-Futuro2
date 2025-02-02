@@ -1,0 +1,84 @@
+@keyframes animatedBackground {
+  0% { background: #a19f9e; }
+  50% { background: #636368; }
+  100% { background: #949694; }
+}
+html, body {
+  animation: animatedBackground 5s infinite alternate;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  flex: 1;
+}
+
+footer {
+  background-color: #343a40; /* Color oscuro */
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+.card-body {
+    display: flex;                /* Usamos Flexbox */
+    flex-direction: column;       /* Ordena los elementos verticalmente */
+    justify-content: center;      /* Centra el contenido verticalmente */
+    align-items: center;          /* Centra el contenido horizontalmente */              /* Altura completa de la ventana */
+    text-align: center;           /* Asegura que el texto esté centrado */
+  }
+
+.card-title {
+  font-size: 18px;              /* Tamaño de texto del botón */
+  padding: 10px 20px;           /* Espaciado interno */
+  background-color: #747973;    /* Color de fondo */
+  color: #070707;                  /* Color del texto */
+  border: none;                 /* Sin bordes */
+  border-radius: 8px;           /* Bordes redondeados */
+  cursor: pointer;              /* Cursor en forma de mano */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  margin-bottom: 10px;          /* Espaciado debajo del botón */
+}
+
+.card-title:hover {
+  background-color: #eff1f3;    /* Cambia el color al pasar el mouse */
+}
+
+.card-text {
+  font-size: 16px;              /* Tamaño de texto del párrafo */
+  color: #333;                  /* Color del texto */
+  margin-top: 5px;              /* Espaciado encima del texto */
+}
+/* Reducir el ancho del offcanvas */
+.offcanvas {
+    max-width: 250px;
+}
+  
+  /* Ajustar el espaciado de las opciones */
+.offcanvas ul.navbar-nav {
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+  
+  /* Espaciado entre el botón de cerrar y las opciones */
+.offcanvas-header {
+    padding: 10px 15px;
+}
+  
+  /* Botones del menú */
+.nav-link {
+    font-size: 14px;
+    padding: 8px 15px;
+}
+  
+  /* Opciones superiores (Ingreso y Crear Cuenta) */
+.offcanvas-body > div:first-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+  
+  /* Botón cerrar */
+.btn-close {
+    font-size: 1rem;
+}
+  

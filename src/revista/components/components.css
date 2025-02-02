@@ -1,0 +1,295 @@
+.crear-publicacion-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+  
+.crear-publicacion-card {
+    max-width: 800px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    text-align: center;
+}
+  
+.crear-publicacion-title {
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+  
+.crear-publicacion-text {
+    color: #6c757d;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+  
+.crear-publicacion-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    transition: background-color 0.3s;
+}
+  
+.crear-publicacion-btn:hover {
+    background-color: #0056b3;
+}
+
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 20px;
+}
+  
+.post-card {
+    width: 30rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #d1d0d0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+  
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+  
+.post-card-image {
+  width: 100%; /* Que ocupe todo el ancho del contenedor */
+  height: auto; /* Mantener la proporción */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Oculta cualquier exceso de imagen */
+}
+
+.post-card-image img {
+  width: 100%; /* Ajustar el ancho al contenedor */
+  height: 100%; /* Ajustar la altura */
+  object-fit: cover; /* Evita espacios en blanco y recorta si es necesario */
+  border-radius: 10px; /* Opcional: Bordes redondeados */
+}
+
+  
+.post-card-body {
+    padding: 15px;
+}
+  
+.post-card-title {
+    color: #050505;
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+  
+.post-card-tag {
+    display: inline-block;
+    color: #fff;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos específicos por tipo de tag */
+.tag-noticias {
+    background-color: #007bff; 
+}
+
+.tag-poemas {
+    background-color: #e623c5; 
+}
+
+.tag-eventos {
+    background-color: #ffc107; 
+}
+
+  
+.post-card-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+  
+.post-card-btn {
+    display: inline-flex; 
+    font-size: 0.9rem;
+    color: #007bff;
+    background-color: transparent;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    align-items: center; 
+    justify-content: center; 
+}
+
+
+.button-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    width: 100%; 
+    height: auto; 
+}
+
+  
+.post-card-btn:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    
+  }
+  
+  .modal-content {
+    background: rgb(150, 149, 149);
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%; /* Ajusta el tamaño */
+    max-width: 600px; /* Máximo ancho */
+    max-height: 80vh; /* Máxima altura */
+    overflow-y: auto; /* Permite scroll vertical si es necesario */
+    text-align: center;
+  }
+  
+  .modal-content img {
+    max-width: 100%;
+    border-radius: 5px;
+  }
+  
+  .modal-content button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #48596b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal-content button:hover {
+    background: #0056b3;
+  }
+  .modal-content img {
+    max-width: 100%; /* La imagen no debe salirse del modal */
+    height: auto;
+    border-radius: 5px;
+  }
+
+  /* Contenedor del formulario de registro */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #585b5e;
+    padding: 20px;
+  }
+  
+  /* Tarjeta del formulario */
+  .register-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    background: rgb(189, 187, 187);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título */
+  .register-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Inputs */
+  .register-form .form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  /* Inputs al hacer focus */
+  .register-form .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Botón */
+  .register-btn {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    transition: background 0.3s;
+  }
+  
+  /* Hover del botón */
+  .register-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .register-card {
+      padding: 20px;
+    }
+  }
+  .ñau{
+    text-align: center; /* Centrar el texto */
+    font-size: 2rem; /* Tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    background: linear-gradient(45deg, #0e0d0d, #0e0d0d, #0e0d0d, #0e0d0d, #0e0d0d, #0e0d0d, #0e0d0d);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textAnimation 5s infinite alternate;
+    transition: text-shadow 0.3s ease-in-out;
+  }
+
+  .ñau:hover{
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
+                   0 0 20px rgba(255, 255, 255, 0.6), 
+                   0 0 30px rgba(255, 255, 255, 0.4);
+  }
+  
+  /* Animación del degradado */
+  @keyframes textAnimation {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+  }
