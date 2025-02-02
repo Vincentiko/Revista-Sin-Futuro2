@@ -149,7 +149,7 @@ export const RevistaPage = () => {
                 />
               </div>
               <div className="card-body text-center">
-                <a className="card-title" src="/public/noticias.jpg">
+                <a className="card-title" href="/noticias">
                   Noticias
                 </a>
                   <p className="card-text">Mantente al día con las últimas novedades en Chile.</p>
@@ -167,7 +167,7 @@ export const RevistaPage = () => {
                 />
               </div>
               <div className="card-body text-center">
-                <a className="card-title" href="/poesia.jpg">
+                <a className="card-title" href="/poemas">
                   Poemas
                 </a>
                 <p className="card-text">Explora la belleza de las palabras.</p>
