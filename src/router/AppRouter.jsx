@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { LoginPage, RegisterPage } from "../auth";
 import { CrearPublicacion, EventosPage, NoticiasPage, PoemasPage, RevistaPage } from "../revista";
 import { useAuthStore } from "../hooks";
@@ -33,7 +33,7 @@ export const AppRouter = () => {
       {/* Rutas de ingreso/crear cuenta */}
         <Route path="/auth/*" element={<LoginPage/>}/>
         <Route path="/create/*" element={<RegisterPage/>}/>
-        <Route path="/*" element={<Navigate to="/auth/login"/>}/>
+
         
 
     </Routes>
