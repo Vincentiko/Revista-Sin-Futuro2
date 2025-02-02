@@ -154,7 +154,7 @@ export const NoticiasPage = () => {
             </div>
           ) : (
             // Botón normal para usuarios no autenticados
-            <a className="btn btn-outline-light mb-2" href="/auth/login">
+            <a className="btn btn-outline-light mb-2" href="/auth">
               Ingreso
             </a>
           )}
