@@ -37,6 +37,7 @@ export const LoginPage = () => {
     }
 
     useEffect(() => {
+        console.log("WINDOW LOCATION:", window.location.origin);
         if(errorMessage !== undefined){
             Swal.fire('Error en la autenticacion', errorMessage, 'error');
         }
@@ -199,15 +200,15 @@ export const LoginPage = () => {
                     <hr />
                     <div className="mt-4 text-center">
                     <p>O inicia sesión con tu cuenta de Google</p>
-                        <GoogleLogin
+                    <GoogleLogin
                         onSuccess={(credentialResponse) => {
                             const token = credentialResponse.credential;
-                            const decoded = jwtDecode(token); // ✅ No uses jwt_decode
 
-                            startGoogleLogin(decoded); // 👈 aquí se dispara la autenticación real
+                            // ✅ Esto sí es lo que tu backend espera
+                            startGoogleLogin({ credential: token });
 
                             Swal.fire({
-                            title: `¡Bienvenido, ${decoded.name}!`,
+                            title: `¡Bienvenido!`,
                             text: "Autenticado con Google correctamente.",
                             icon: "success",
                             confirmButtonText: "Continuar"

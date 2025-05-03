@@ -41,7 +41,7 @@ export const useAuthStore = () => {
             });          
              
         } catch (error) {
-            dispatch(onLogout(error.response.data?.msg || ''))
+            dispatch(onLogout(error.response?.data?.msg || 'Error al registrar usuario'))
             setTimeout(() => {
                 dispatch(clearErrorMessage());
             }, 10);
@@ -67,15 +67,11 @@ export const useAuthStore = () => {
         localStorage.clear();
         dispatch(onLogout());
     }
-    const startGoogleLogin = async (googleUser) => {
+    const startGoogleLogin = async ({ credential }) => {
         dispatch(onChecking());
     
         try {
-            const { data } = await revistaApi.post('/auth/google', {
-                email: googleUser.email,
-                name: googleUser.name,
-                sub: googleUser.sub
-            });
+            const { data } = await revistaApi.post('/auth/google', { credential });
     
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
@@ -88,11 +84,8 @@ export const useAuthStore = () => {
                 dispatch(clearErrorMessage());
             }, 10);
         }
-    };    
+    };
     
-
-
-
     return {
         //propiedades
         status,
