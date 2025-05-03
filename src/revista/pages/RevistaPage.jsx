@@ -137,58 +137,58 @@ export const RevistaPage = () => {
       {/* Tarjetas animadas */}
       <div className="container mt-5">
         <h1 className="text-center mb-4">Explora el Blog</h1>
-        <div className="row g-4">
+        <div className="row g-4" >
           {/* Tarjeta de Noticias */}
-          <div className="col-md-4">
-            <div className="card custom-card animate__animated animate__bounceIn">
+          <div className="col-md-4" >
+            <div className="card custom-card animate__animated animate__bounceIn" style={{backgroundColor: '#33a8ff'}}>
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img
-                  src="/noticias.jpg" 
+                  src="/primera.png" 
                   alt="Logo Empresa"
-                  style={{ marginTop: '10px' ,maxWidth: '500px', maxHeight: '200px', width: 'auto', height: 'auto' }}
+                  style={{ marginTop: '10px' ,maxWidth: '60%', borderRadius: '15px', height: 'auto', objectFit: 'cover' }}
                 />
               </div>
               <div className="card-body text-center">
                 <a className="card-title" href="/noticias">
-                  Noticias
+                  <strong>Noticias</strong>
                 </a>
-                  <p className="card-text">Mantente al día con las últimas novedades en Chile.</p>
+                  <h2 className="card-text">Mantente al día con las últimas novedades en Chile.</h2>
               </div>
             </div>
           </div>
           {/* Tarjeta de Poemas */}
           <div className="col-md-4">
-            <div className="card custom-card animate__animated animate__bounceIn">
+            <div className="card custom-card animate__animated animate__bounceIn" style={{backgroundColor: '#ffa533'}}>
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img
-                  src="/poesia.jpg" 
+                  src="/segunda.png" 
                   alt="Logo Empresa"
-                  style={{ marginTop: '10px' ,maxWidth: '500px', maxHeight: '200px', width: 'auto', height: 'auto' }}
+                  style={{ marginTop: '10px' ,maxWidth: '60%', borderRadius: '15px', height: 'auto', objectFit: 'cover' }}
                 />
               </div>
               <div className="card-body text-center">
                 <a className="card-title" href="/poemas">
-                  Poemas
+                <strong>Poemas</strong>
                 </a>
-                <p className="card-text">Explora la belleza de las palabras.</p>
+                <h2 className="card-text">Explora la belleza de las palabras.</h2>
               </div>
             </div>
           </div>
           {/* Tarjeta de Eventos */}
           <div className="col-md-4">
-            <div className="card custom-card animate__animated animate__bounceIn">
+            <div className="card custom-card animate__animated animate__bounceIn" style={{backgroundColor: '#fff933'}}>
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img
-                  src="/eventos.png" // Cambia esta URL por la imagen de tu empresa
+                  src="/tercera.png" // Cambia esta URL por la imagen de tu empresa
                   alt="Logo Empresa"
-                  style={{ marginTop: '10px' ,maxWidth: '500px', maxHeight: '200px', width: 'auto', height: 'auto' }}
+                  style={{ marginTop: '10px' ,maxWidth: '60%', borderRadius: '15px', height: 'auto', objectFit: 'cover' }}
                 />
               </div>
               <div className="card-body text-center">
                 <a className="card-title" href="/eventos">
-                  Eventos
+                <strong>Eventos</strong>
                 </a>
-                <p className="card-text">Descubre eventos y actividades culturales.</p>
+                <h2 className="card-text">Descubre eventos y actividades culturales.</h2>
               </div>
             </div>
           </div>
@@ -210,13 +210,13 @@ export const RevistaPage = () => {
               </div>
               <div className="carousel-inner">
                 <div className="carousel-item active">
-                  <img src="/que linda que estas.jpg" className="d-block w-100" alt="Primera imagen" />
+                  <img src="/revista-libro.jpg" className="d-block w-100" alt="Primera imagen" />
                 </div>
                 <div className="carousel-item">
-                  <img src="/que linda que estas.jpg" className="d-block w-100" alt="Segunda imagen" />
+                  <img src="/revista-2.jpg" className="d-block w-100" alt="Segunda imagen" />
                 </div>
                 <div className="carousel-item">
-                  <img src="/que linda que estas.jpg" className="d-block w-100" alt="Tercera imagen" />
+                  <img src="/revista-3.jpg" className="d-block w-100" alt="Tercera imagen" />
                 </div>
               </div>
               <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -238,9 +238,10 @@ export const RevistaPage = () => {
               fontWeight: "400",
               textAlign: "justify"
             }}>
-              Somos una revista dedicada a explorar el arte y la cultura en todas sus formas.  
-              Nuestro objetivo es compartir <strong>noticias, poemas, eventos y mucho más</strong>,  
-              conectando a las personas con el mundo artístico y cultural.
+              Impulso genuino de querer expresar la improvisación del cotidiano y desacelerar el presente que se nos escapa, 
+              de mantener la eternidad en el hoy y aplicar la ironía fundamental de que las mínimas posibilidades llevan a la máxima realidad.
+              Colocar una bisagra en medio de todo lo opuesto. Con este material literario y la instancias festivas buscamos darle espacio y visibilidad a la poesía cultivada joven y a la difusión de las voces con mayor experiencia.
+              RevistaSinfuturo nace de la coordinación de los artistas: <strong>Sebastián Solas, Gris Álvarez y Marco Godoy.</strong>
             </p>
           </div>
         </div>

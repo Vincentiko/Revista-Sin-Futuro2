@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useAuthStore, useForm } from '../../hooks';
 import './LoginPage.css';
 import Swal from 'sweetalert2';
+import { jwtDecode } from "jwt-decode";
+import { GoogleLogin } from '@react-oauth/google';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const loginFormFields = {
@@ -14,7 +16,7 @@ export const LoginPage = () => {
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
-    const {startLogin, errorMessage, status, user, startLogout} = useAuthStore();
+    const {startLogin, errorMessage, status, user, startLogout, startGoogleLogin} = useAuthStore();
 
     const {loginEmail, loginPassword, onInputChange:onLoginInputChange} = useForm(loginFormFields);
 
@@ -193,8 +195,35 @@ export const LoginPage = () => {
                             <a href="/create">¿No tienes cuenta? Has click aquí</a>
                         </div>
                     </form>
+                                    {/* Bloque Google Login */}
+                    <hr />
+                    <div className="mt-4 text-center">
+                    <p>O inicia sesión con tu cuenta de Google</p>
+                        <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                            const token = credentialResponse.credential;
+                            const decoded = jwtDecode(token); // ✅ No uses jwt_decode
+
+                            startGoogleLogin(decoded); // 👈 aquí se dispara la autenticación real
+
+                            Swal.fire({
+                            title: `¡Bienvenido, ${decoded.name}!`,
+                            text: "Autenticado con Google correctamente.",
+                            icon: "success",
+                            confirmButtonText: "Continuar"
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "/";
+                            }
+                            });
+                        }}
+                        onError={() => {
+                            console.log("Fallo el login con Google");
+                            Swal.fire('Error', 'No se pudo iniciar sesión con Google', 'error');
+                        }}
+                        />
+                    </div>
                 </div>
-                
             </div>
             <footer className="bg-dark text-white text-center py-3 mt-auto">
                 <div className="mb-2">
