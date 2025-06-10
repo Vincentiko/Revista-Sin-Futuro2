@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import {FaInstagram} from 'react-icons/fa';
 import './RevistaPage.css';
 import { useAuthStore } from '../../hooks';
 import { useState } from 'react';
@@ -87,18 +87,13 @@ export const RevistaPage = () => {
                 aria-labelledby="dropdownMenuButton"
               >
                 <li>
-                  <a className="dropdown-item" href="/profile">
+                  <a className="dropdown-item" href="/perfil">
                     Perfil
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="/private-session">
                     Configuraciones
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="/preferences">
-                    Modo Dark
                   </a>
                 </li>
                 <li>
@@ -249,12 +244,6 @@ export const RevistaPage = () => {
 
       <footer className="bg-dark text-white text-center py-3 mt-auto">
         <div className="mb-2">
-          <a href="https://facebook.com" className="text-white me-3" aria-label="Facebook">
-            <FaFacebook size={24} />
-          </a>
-          <a href="https://twitter.com" className="text-white me-3" aria-label="Twitter">
-            <FaTwitter size={24} />
-          </a>
           <a href="https://www.instagram.com/revistasinfuturo/?hl=es" className="text-white" aria-label="Instagram">
             <FaInstagram size={24} />
           </a>

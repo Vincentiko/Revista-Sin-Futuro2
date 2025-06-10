@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { LoginPage, RegisterPage } from "../auth";
-import { CrearPublicacion, EventosPage, NoticiasPage, PoemasPage, RevistaPage } from "../revista";
+import { CrearPublicacion, EventosPage, NoticiasPage, PoemasPage, RevistaPage, Perfil } from "../revista";
 import { useAuthStore } from "../hooks";
 import { useEffect } from "react";
 
@@ -28,6 +28,7 @@ export const AppRouter = () => {
         <Route path="/noticias/*" element={<NoticiasPage/>}/>
         <Route path="/poemas/*" element={<PoemasPage/>}/>
         <Route path="/eventos/*" element={<EventosPage/>}/>
+        <Route path="/perfil/*" element={<Perfil/>}/>
       {/* Rutas de la creacion de publicaciones */}
         <Route path="/crearPublicacion/*" element={<CrearPublicacion/>}/>
       {/* Rutas de ingreso/crear cuenta */}

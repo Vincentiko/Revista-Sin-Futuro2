@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import { useAuthStore, useForm } from "../../hooks";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 import { useState } from "react";
 
 const registerFormFields = {
@@ -117,11 +117,6 @@ export const RegisterPage = () => {
                             </a>
                             </li>
                             <li>
-                            <a className="dropdown-item" href="/preferences">
-                                Modo Dark
-                            </a>
-                            </li>
-                            <li>
                             <hr className="dropdown-divider" />
                             </li>
                             <li>
@@ -214,12 +209,6 @@ export const RegisterPage = () => {
                 
                 <footer className="bg-dark text-white text-center py-3 mt-auto">
                     <div className="mb-2">
-                        <a href="https://facebook.com" className="text-white me-3" aria-label="Facebook">
-                        <FaFacebook size={24} />
-                        </a>
-                        <a href="https://twitter.com" className="text-white me-3" aria-label="Twitter">
-                        <FaTwitter size={24} />
-                        </a>
                         <a href="https://www.instagram.com/revistasinfuturo/?hl=es" className="text-white" aria-label="Instagram">
                         <FaInstagram size={24} />
                         </a>

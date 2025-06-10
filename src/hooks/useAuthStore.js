@@ -67,24 +67,6 @@ export const useAuthStore = () => {
         localStorage.clear();
         dispatch(onLogout());
     }
-    const startGoogleLogin = async ({ credential }) => {
-        dispatch(onChecking());
-    
-        try {
-            const { data } = await revistaApi.post('/auth/google', { credential });
-    
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('token-init-date', new Date().getTime());
-    
-            dispatch(onLogin({ uid: data.uid, nombre: data.nombre }));
-    
-        } catch (error) {
-            dispatch(onLogout('No se pudo iniciar sesión con Google'));
-            setTimeout(() => {
-                dispatch(clearErrorMessage());
-            }, 10);
-        }
-    };
     
     return {
         //propiedades
@@ -95,7 +77,6 @@ export const useAuthStore = () => {
         startLogin,
         startRegister,
         checkAuthToken,
-        startLogout,
-        startGoogleLogin
+        startLogout
     }
 }

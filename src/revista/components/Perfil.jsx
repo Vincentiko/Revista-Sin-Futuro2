@@ -1,46 +1,36 @@
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
-
-import { useState } from 'react';
-import './components.css'
+import { FaInstagram} from 'react-icons/fa';
 import { useAuthStore, useRevistaStore } from '../../hooks';
+import {   useEffect, useState } from 'react';
+// import Swal from "sweetalert2";
+// import { useNavigate } from 'react-router-dom';
 
-export const CrearPublicacion = () => {
-    const {status, user, startLogout} =useAuthStore();
-    const [isOpen, setIsOpen] = useState(false);
+
+export const Perfil = () => {
+  const {events, isLoadingEvents, startLoadingEvents} = useRevistaStore();
+  const {status, user, startLogout} =useAuthStore();
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const openModal = (event) => {
+    setSelectedEvent(event);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedEvent(null);
+  };
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+//   const navigate = useNavigate();
   
-    const toggleDropdown = () => setIsOpen(!isOpen);
-    const { startSavingEvent} = useRevistaStore(); // 🔹 Importamos la función de Redux
-    const [newPost, setNewPost] = useState({
-    titulo: "",
-    tag: "",
-    descripcion: "",
-    start: new Date(), // Fecha de la publicación
-  });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewPost({ ...newPost, [name]: value });
-  };
+  useEffect(() => {
+    startLoadingEvents();
+  })
 
-  const handlePostSubmit = async (e) => {
-    e.preventDefault();
 
-    try {
-        await startSavingEvent(newPost);
-        setNewPost({ titulo: "", tag: "", descripcion: "", start: new Date(), imagen: null });
-    } catch (error) {
-        console.error("Error al guardar publicación:", error);
-    }
-};
-  const handleFileChange = (e) => {
-    const file = e.target.files[0]; // Obtiene el archivo seleccionado
-    if (file) {
-        setNewPost((prevPost) => ({
-            ...prevPost,
-            imagen: file, // Guarda la imagen en el estado
-        }));
-    }
-  };
 
   return (
     <div>
@@ -77,7 +67,7 @@ export const CrearPublicacion = () => {
             {/* Logo */}
             <a className="navbar-brand d-flex align-items-center" href="/">
               <img
-                src="/public/rev.png"
+                src="/rev.png"
                 alt="Logo Empresa"
                 style={{ marginRight: '10px', maxHeight: '30px' }}
               />
@@ -119,7 +109,7 @@ export const CrearPublicacion = () => {
                 aria-labelledby="dropdownMenuButton"
               >
                 <li>
-                  <a className="dropdown-item" href="/profile">
+                  <a className="dropdown-item" href="/perfil">
                     Perfil
                   </a>
                 </li>
@@ -149,84 +139,97 @@ export const CrearPublicacion = () => {
             </a>
           )}
         </div>
-        {/*Publicaciones */}
         </div>
       </nav>
-      
-      {/* Formulario para crear posts */}
-      <div className="container my-5">
-        <h2 className="text-center mb-4">Crea tu Post</h2>
-        <form onSubmit={handlePostSubmit} className="mb-5">
-          <div className="mb-3">
-            <label htmlFor="titulo" className="form-label">Título</label>
-            <input
-              type="text"
-              id="titulo"
-              name="titulo"
-              className="form-control"
-              value={newPost.titulo}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+      {/*Perfil del usuario */}
 
-          <div className="mb-3">
-            <label htmlFor="tag" className="form-label">Categoría</label>
-            <select
-              className="form-select"
-              id="tag"
-              name="tag"
-              value={newPost.tag}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Selecciona una categoría</option>
-              <option value="Noticias">Noticias</option>
-              <option value="Poemas">Poemas</option>
-              <option value="Eventos">Eventos</option>
-            </select>
-          </div>
 
-          <div className="mb-3">
-            <label htmlFor="descripcion" className="form-label">Descripción</label>
-            <textarea
-              id="descripcion"
-              name="descripcion"
-              className="form-control"
-              rows="3"
-              value={newPost.descripcion}
-              onChange={handleInputChange}
-              required
-            ></textarea>
+      {/* Mostrar publicaciones del perfil */}
+      <div>
+        <h2 className='ñau'>Publicaciones que has realizado</h2>
+        {isLoadingEvents ? (
+          <p></p>
+        ) : (
+          <div className="posts">
+            {events.filter(event => event.tag === "Noticias" || event.tag === "Poemas" || event.tag === "Eventos").length === 0 ? (
+              <p>No tienes publicaciones creadas.</p>
+            ) : (
+              events
+                .filter(event => (event.tag === "Noticias" || event.tag === "Poemas" || event.tag === "Eventos") && (event.user === user.uid || event.user?._id === user.uid ) )
+                .map((event, index) => (
+                  <div key={index} className="post-card">
+                    {event.image && (
+                      <div className="post-card-image">
+                        <img src={event.image} alt="Post" />
+                      </div>
+                    )}
+                    <div className="post-card-body">
+                      <small>
+                        {event.start
+                          ? new Date(event.start).toLocaleDateString("es-CL")
+                          : "Fecha no disponible"}
+                      </small>
+                      <h5 className="post-card-title">{event.titulo}</h5>
+                      {event.imagenUrl && (
+                        <div className="post-card-image">
+                          <img src={event.imagenUrl} alt="Imagen del evento" />
+                        </div>
+                      )}
+                      <div className={`post-card-tag tag-${event.tag?.toLowerCase()}`}>
+                        {event.tag}
+                      </div>
+                      
+                      <div className="button-container">
+                        <button className="post-card-btn" onClick={() => openModal(event)}>
+                          Leer más
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+            )}
           </div>
+        )}
+        
 
-          {/* Nuevo campo para subir imágenes */}
-          <div className="mb-3">
-            <label htmlFor="imagen" className="form-label">Subir Imagen</label>
-            <input
-              type="file"
-              id="imagen"
-              name="imagen"
-              className="form-control"
-              accept="image/*"
-              onChange={handleFileChange} // Nueva función para manejar imágenes
-            />
+      {/* Modal */}
+      {modalOpen && selectedEvent && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>{selectedEvent.titulo}</h2>
+             {/* ✅ Mostrar la imagen correctamente */}
+              {selectedEvent.imagenUrl && (
+                <img src={selectedEvent.imagenUrl} alt="Imagen del evento" />
+              )}
+            <p><strong></strong> {selectedEvent.descripcion}</p>
+            <p><strong>Tag:</strong> {selectedEvent.tag}</p>
+            <p><strong>Autor:</strong> {selectedEvent.user?.nombre || "Desconocido"}</p>
+            <p><strong>Fecha:</strong> {new Date(selectedEvent.start).toLocaleString("es-CL")}</p>
+            <button onClick={closeModal}>Cerrar</button>
           </div>
+        </div>
+      )}
+    </div>
+    <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
 
-          <button type="submit" className="btn btn-primary">Publicar</button>
-        </form>
-      </div>
+    </div>
 
 
       {/* Footer */}
       <footer className="bg-dark text-white text-center py-3 mt-auto">
         <div className="mb-2">
-          <a href="https://facebook.com" className="text-white me-3" aria-label="Facebook">
-            <FaFacebook size={24} />
-          </a>
-          <a href="https://twitter.com" className="text-white me-3" aria-label="Twitter">
-            <FaTwitter size={24} />
-          </a>
           <a href="https://www.instagram.com/revistasinfuturo/?hl=es" className="text-white" aria-label="Instagram">
             <FaInstagram size={24} />
           </a>
@@ -236,3 +239,4 @@ export const CrearPublicacion = () => {
     </div>
   );
 };
+

@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuthStore, useForm } from '../../hooks';
 import './LoginPage.css';
 import Swal from 'sweetalert2';
-import { jwtDecode } from "jwt-decode";
-import { GoogleLogin } from '@react-oauth/google';
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa';
 
 const loginFormFields = {
     loginEmail: '',
@@ -16,28 +14,29 @@ export const LoginPage = () => {
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
-    const {startLogin, errorMessage, status, user, startLogout, startGoogleLogin} = useAuthStore();
+    const {startLogin, errorMessage, status, user, startLogout} = useAuthStore();
 
     const {loginEmail, loginPassword, onInputChange:onLoginInputChange} = useForm(loginFormFields);
 
     const loginSubmit = (event) => {
         event.preventDefault();
-        startLogin({email: loginEmail, contraseña: loginPassword});
-        Swal.fire({
-            title: "Bienvenido, preparate para descubrir un mundo de arte.",
-            icon: "success",
-            confirmButtonText: "Haz click aquí"
+        startLogin({email: loginEmail, contraseña: loginPassword});    
+    }
+    useEffect(() => {
+        if(status === 'authenticated'){
+            Swal.fire({
+                title: "Bienvenido, preparate para descubrir un mundo de arte.",
+                icon: "success",
+                confirmButtonText: "Haz click aquí"
         }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = "/"; 
             }
         });
-        
-        
-    }
+        }
+    })
 
     useEffect(() => {
-        console.log("WINDOW LOCATION:", window.location.origin);
         if(errorMessage !== undefined){
             Swal.fire('Error en la autenticacion', errorMessage, 'error');
         }
@@ -121,7 +120,7 @@ export const LoginPage = () => {
                         aria-labelledby="dropdownMenuButton"
                     >
                         <li>
-                        <a className="dropdown-item" href="/profile">
+                        <a className="dropdown-item" href="/perfil">
                             Perfil
                         </a>
                         </li>
@@ -196,44 +195,10 @@ export const LoginPage = () => {
                             <a href="/create">¿No tienes cuenta? Has click aquí</a>
                         </div>
                     </form>
-                                    {/* Bloque Google Login */}
-                    <hr />
-                    <div className="mt-4 text-center">
-                    <p>O inicia sesión con tu cuenta de Google</p>
-                    <GoogleLogin
-                        onSuccess={(credentialResponse) => {
-                            const token = credentialResponse.credential;
-
-                            // ✅ Esto sí es lo que tu backend espera
-                            startGoogleLogin({ credential: token });
-
-                            Swal.fire({
-                            title: `¡Bienvenido!`,
-                            text: "Autenticado con Google correctamente.",
-                            icon: "success",
-                            confirmButtonText: "Continuar"
-                            }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "/";
-                            }
-                            });
-                        }}
-                        onError={() => {
-                            console.log("Fallo el login con Google");
-                            Swal.fire('Error', 'No se pudo iniciar sesión con Google', 'error');
-                        }}
-                        />
-                    </div>
                 </div>
             </div>
             <footer className="bg-dark text-white text-center py-3 mt-auto">
                 <div className="mb-2">
-                    <a href="https://facebook.com" className="text-white me-3" aria-label="Facebook">
-                    <FaFacebook size={24} />
-                    </a>
-                    <a href="https://twitter.com" className="text-white me-3" aria-label="Twitter">
-                    <FaTwitter size={24} />
-                    </a>
                     <a href="https://www.instagram.com/revistasinfuturo/?hl=es" className="text-white" aria-label="Instagram">
                     <FaInstagram size={24} />
                     </a>
