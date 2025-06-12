@@ -25,13 +25,8 @@ export const revistaSlice = createSlice({
             return event;
         })
     },
-    onDeleteEvent: (state) => {
-        if (state.activeEvent) {
-            state.events = state.events.filter(
-                (event) => event.id !== state.activeEvent.id
-            );
-            state.activeEvent = null;
-        }
+    onDeleteEvent: (state, action) => {
+      state.events = state.events.filter(event => event.id !== action.payload);
     },
     onLoadEvents: (state, { payload = [] }) => {
       state.isLoadingEvents = false;

@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa';
 
 import { useState } from 'react';
 import './components.css'
@@ -221,12 +221,6 @@ export const CrearPublicacion = () => {
       {/* Footer */}
       <footer className="bg-dark text-white text-center py-3 mt-auto">
         <div className="mb-2">
-          <a href="https://facebook.com" className="text-white me-3" aria-label="Facebook">
-            <FaFacebook size={24} />
-          </a>
-          <a href="https://twitter.com" className="text-white me-3" aria-label="Twitter">
-            <FaTwitter size={24} />
-          </a>
           <a href="https://www.instagram.com/revistasinfuturo/?hl=es" className="text-white" aria-label="Instagram">
             <FaInstagram size={24} />
           </a>

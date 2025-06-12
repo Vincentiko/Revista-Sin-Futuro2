@@ -1,12 +1,13 @@
 import { FaInstagram} from 'react-icons/fa';
 import { useAuthStore, useRevistaStore } from '../../hooks';
 import {   useEffect, useState } from 'react';
-// import Swal from "sweetalert2";
+import './perfil.css';
+import Swal from "sweetalert2";
 // import { useNavigate } from 'react-router-dom';
 
 
 export const Perfil = () => {
-  const {events, isLoadingEvents, startLoadingEvents} = useRevistaStore();
+  const {events, isLoadingEvents, startLoadingEvents, startDeletingEvent} = useRevistaStore();
   const {status, user, startLogout} =useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,13 +25,41 @@ export const Perfil = () => {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 //   const navigate = useNavigate();
+
+ const handleDelete = async (event) => {
+  const result = await Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'No podrás revertir esto',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  });
+
+  if (result.isConfirmed) {
+    await startDeletingEvent(event);
+
+    Swal.fire('Eliminado', 'La publicación fue eliminada correctamente', 'success');
+    
+  }
+};
+  
+  
+  const postCount = events.filter(e => e.user === user.uid || e.user?._id === user.uid).length;
+  const getGifByCount = () => {
+    if(postCount === 0) return "/public/south-park-goth.gif";
+    if(postCount <= 3) return "/public/south-park-butters-south-park.gif";
+    if(postCount <= 6) return "/public/5f19c72144beb0521addcab8cdacc030.gif";
+    if(postCount <= 9) return "/public/southpark-9.gif";
+    return "/public/southpark-10.gif"; //+de 10 publicaciones asies
+  }
   
 
   useEffect(() => {
     startLoadingEvents();
   })
-
-
 
   return (
     <div>
@@ -142,6 +171,21 @@ export const Perfil = () => {
         </div>
       </nav>
       {/*Perfil del usuario */}
+      <div className="profile-wrapper">
+        <div className="profile-content">
+          <div className="profile-text">
+            <h2>🐧 Hola, <strong>{user.nombre}</strong></h2>
+            <p>Tu conteo de publicaciones es: <span className="post-count">{postCount}</span></p>
+            <p>Te dejamos tus publicaciones realizadas hasta ahora:</p>
+          </div>
+
+          <div className="gif-area">
+            <img src={getGifByCount()} alt="Estado motivacional" className="motivational-gif" />
+          </div>
+        </div>
+      </div>
+      
+
 
 
       {/* Mostrar publicaciones del perfil */}
@@ -163,6 +207,11 @@ export const Perfil = () => {
                         <img src={event.image} alt="Post" />
                       </div>
                     )}
+                    <div className="post-card-actions" key={event.id}>
+                      <button className="edit-btn" onClick={() => handleEdit(event)}>✏️</button>
+                      <button className="delete-btn" onClick={() => handleDelete(event)}>🗑️</button>
+                    </div>
+
                     <div className="post-card-body">
                       <small>
                         {event.start

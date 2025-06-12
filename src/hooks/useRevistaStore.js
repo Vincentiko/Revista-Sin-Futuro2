@@ -79,12 +79,12 @@ export const useRevistaStore = () => {
 
 
 
-  const startDeletingEvent = async() => {
+  const startDeletingEvent = async(event) => {
     //TODO: Llegar al Backend
 
     try {
-        await revistaApi.delete((`/events/${activeEvent.id}`));
-        dispatch(onDeleteEvent());
+        await revistaApi.delete((`/events/${event.id}`));
+        dispatch(onDeleteEvent(event.id));
     } catch (error) {
         console.log(error)
         Swal.fire('Error al eliminar', error.response.data.msg, 'error')

@@ -281,6 +281,40 @@
     animation: textAnimation 5s infinite alternate;
     transition: text-shadow 0.3s ease-in-out;
   }
+  .post-card {
+    position: relative;
+  }
+
+  .post-card-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.1s ease;
+  }
+
+  .edit-btn:hover,
+  .delete-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .edit-btn {
+    color: #007bff;
+  }
+
+  .delete-btn {
+    color: #dc3545;
+  }
+
 
   .ñau:hover{
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 

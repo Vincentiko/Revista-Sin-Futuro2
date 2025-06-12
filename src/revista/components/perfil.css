@@ -1,0 +1,59 @@
+.profile-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  margin: 2rem auto;
+  color: #f9f9f9;
+  transition: all 0.3s ease-in-out;
+}
+
+.profile-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.profile-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.profile-text h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.profile-text p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.post-count {
+  font-weight: bold;
+  color: #4fc3f7;
+}
+
+.gif-area {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.motivational-gif {
+  width: 140px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.motivational-gif:hover {
+  transform: scale(1.05);
+}
