@@ -49,11 +49,11 @@ export const Perfil = () => {
   
   const postCount = events.filter(e => e.user === user.uid || e.user?._id === user.uid).length;
   const getGifByCount = () => {
-    if(postCount === 0) return "/public/imagenes/southpark-1.gif";
-    if(postCount <= 3) return "/public/imagenes/southpark-3.gif";
-    if(postCount <= 6) return "/public/imagenes/southpark-5.gif";
-    if(postCount <= 9) return "/public/imagenes/southpark-9.gif";
-    return "/public/imagenes/southpark-10.gif"; //+de 10 publicaciones asies
+    if(postCount === 0) return "/imagenes/southpark-1.gif";
+    if(postCount <= 3) return "/imagenes/southpark-3.gif";
+    if(postCount <= 6) return "/imagenes/southpark-5.gif";
+    if(postCount <= 9) return "/imagenes/southpark-9.gif";
+    return "/imagenes/southpark-10.gif"; //+de 10 publicaciones asies
   }
   
 
