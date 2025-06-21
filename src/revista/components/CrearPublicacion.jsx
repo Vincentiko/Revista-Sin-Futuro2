@@ -77,7 +77,7 @@ export const CrearPublicacion = () => {
             {/* Logo */}
             <a className="navbar-brand d-flex align-items-center" href="/">
               <img
-                src="/public/rev.png"
+                src="/rev.png"
                 alt="Logo Empresa"
                 style={{ marginRight: '10px', maxHeight: '30px' }}
               />
