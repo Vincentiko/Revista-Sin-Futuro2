@@ -12,6 +12,8 @@ export const Perfil = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const adminUid = import.meta.env.VITE_ADMIN_UID;
+
 
   const openModal = (event) => {
     setSelectedEvent(event);
@@ -22,6 +24,7 @@ export const Perfil = () => {
     setModalOpen(false);
     setSelectedEvent(null);
   };
+
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 //   const navigate = useNavigate();
@@ -37,6 +40,7 @@ export const Perfil = () => {
     confirmButtonText: 'Sí, eliminar',
     cancelButtonText: 'Cancelar'
   });
+
 
   if (result.isConfirmed) {
     await startDeletingEvent(event);
@@ -138,7 +142,7 @@ export const Perfil = () => {
                 aria-labelledby="dropdownMenuButton"
               >
                 <li>
-                  <a className="dropdown-item" href="/perfil">
+                  <a className="dropdown-item" href={user.uid === adminUid ? "/perfilAdmin" : "/perfil"}>
                     Perfil
                   </a>
                 </li>
@@ -208,7 +212,7 @@ export const Perfil = () => {
                       </div>
                     )}
                     <div className="post-card-actions" key={event.id}>
-                      <button className="edit-btn" onClick={() => handleEdit(event)}>✏️</button>
+                      <a className="edit-btn" href={`/EditarPublicacion/${event.id}`}>✏️</a>
                       <button className="delete-btn" onClick={() => handleDelete(event)}>🗑️</button>
                     </div>
 
@@ -246,10 +250,9 @@ export const Perfil = () => {
         <div className="modal-overlay">
           <div className="modal-content">
             <h2>{selectedEvent.titulo}</h2>
-             {/* ✅ Mostrar la imagen correctamente */}
-              {selectedEvent.imagenUrl && (
-                <img src={selectedEvent.imagenUrl} alt="Imagen del evento" />
-              )}
+            {selectedEvent.imagenUrl && (
+              <img src={selectedEvent.imagenUrl} alt="Imagen del evento" />
+            )}
             <p><strong></strong> {selectedEvent.descripcion}</p>
             <p><strong>Tag:</strong> {selectedEvent.tag}</p>
             <p><strong>Autor:</strong> {selectedEvent.user?.nombre || "Desconocido"}</p>
@@ -258,6 +261,7 @@ export const Perfil = () => {
           </div>
         </div>
       )}
+
     </div>
     <div>
       <br />

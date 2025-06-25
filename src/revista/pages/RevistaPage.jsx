@@ -6,6 +6,7 @@ import { useState } from 'react';
 export const RevistaPage = () => {
   const {status, user, startLogout} =useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
+  const adminUid = import.meta.env.VITE_ADMIN_UID;
 
   const toggleDropdown = () => setIsOpen(!isOpen);
  
@@ -87,7 +88,7 @@ export const RevistaPage = () => {
                 aria-labelledby="dropdownMenuButton"
               >
                 <li>
-                  <a className="dropdown-item" href="/perfil">
+                  <a className="dropdown-item" href={user.uid === adminUid ? "/perAdmin" : "/perfil"}>
                     Perfil
                   </a>
                 </li>

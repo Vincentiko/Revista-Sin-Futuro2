@@ -192,6 +192,7 @@ export const LoginPage = () => {
                             />
                         </div>
                         <div>
+                            <a href="/cambioContra">¿Olvidaste tu contraseña?</a><br />
                             <a href="/create">¿No tienes cuenta? Has click aquí</a>
                         </div>
                     </form>

@@ -5,3 +5,6 @@ export * from './components/PoemasPage';
 export * from './components/Perfil';
 export * from './pages/RevistaPage';
 export * from './pages/VerPostPage';
+export * from './components/EditarPublicacion';
+export * from './components/PerAdmin';
+export * from './pages/CambioContra';

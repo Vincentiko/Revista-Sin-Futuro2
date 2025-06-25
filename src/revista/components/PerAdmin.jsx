@@ -1,13 +1,13 @@
-import { FaInstagram } from 'react-icons/fa';
-import './components.css';
+import { FaInstagram} from 'react-icons/fa';
 import { useAuthStore, useRevistaStore } from '../../hooks';
 import {   useEffect, useState } from 'react';
+import './perfil.css';
 import Swal from "sweetalert2";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
-export const EventosPage = () => {
-  const {events, isLoadingEvents, startLoadingEvents} = useRevistaStore();
+export const PerAdmin = () => {
+  const {events, isLoadingEvents, startLoadingEvents, startDeletingEvent} = useRevistaStore();
   const {status, user, startLogout} =useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -25,32 +25,49 @@ export const EventosPage = () => {
     setSelectedEvent(null);
   };
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  const navigate = useNavigate();
 
-  const handleCrearPublicacion = () => {
-    if (status !== "authenticated") {
-      // Si no está logueado, mostrar alerta
-      Swal.fire({
-        icon: "warning",
-        title: "Acceso restringido",
-        text: "Debes iniciar sesión para crear una publicación.",
-        confirmButtonText: "Ok",
-      });
-    } else {
-      // Si está logueado, redirigir a la página de creación
-      navigate("/crearPublicacion");
-    }
-  };
+  const toggleDropdown = () => setIsOpen(!isOpen);
+//   const navigate = useNavigate();
+
+ const handleDelete = async (event) => {
+  const result = await Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'No podrás revertir esto',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  });
+
+
+  if (result.isConfirmed) {
+    await startDeletingEvent(event);
+
+    Swal.fire('Eliminado', 'La publicación fue eliminada correctamente', 'success');
+    
+  }
+};
   
+  
+  const postCount = events.length;
+
+  const getGifByCount = () => {
+    if (postCount === 0) return "/imagenes/southpark-1.gif";
+    if (postCount <= 3) return "/imagenes/southpark-3.gif";
+    if (postCount <= 6) return "/imagenes/southpark-5.gif";
+    if (postCount <= 9) return "/imagenes/southpark-9.gif";
+    return "/imagenes/southpark-10.gif"; // +de 10 publicaciones
+  };
+
   useEffect(() => {
     startLoadingEvents();
   })
 
-
-
   return (
     <div>
+      {/* Imagen de la empresa */}
       <h1 className="animate__animated animate__zoomInUp" 
           style={{
             textAlign: "center",
@@ -155,36 +172,38 @@ export const EventosPage = () => {
             </a>
           )}
         </div>
-        {/*Publicaciones */}
         </div>
       </nav>
-      <div className="crear-publicacion-container">
-        <div className="crear-publicacion-card">
-          <h2 className="crear-publicacion-title">
-            ¿Te gustaría publicar una noticia, un poema o un evento?
-            
-          </h2>
-          <p className="crear-publicacion-text">
-            Comparte tu creatividad con el mundo. ¡Haz clic en el botón de abajo para
-            comenzar a crear tu publicación!
-          </p>
-          <button className="crear-publicacion-btn" onClick={handleCrearPublicacion}>
-            Crear publicación
-          </button>
+      {/*Perfil del usuario */}
+      <div className="profile-wrapper">
+        <div className="profile-content">
+          <div className="profile-text">
+            <h2>🐧 Hola, <strong>{user.nombre}</strong></h2>
+            <p>Tu conteo de publicaciones es: <span className="post-count">{postCount}</span></p>
+            <p>Te dejamos tus publicaciones realizadas hasta ahora:</p>
+          </div>
+
+          <div className="gif-area">
+            <img src={getGifByCount()} alt="Estado motivacional" className="motivational-gif" />
+          </div>
         </div>
       </div>
-      {/* Mostrar publicaciones */}
+      
+
+
+
+      {/* Mostrar publicaciones del perfil */}
       <div>
-        <h2 className='ñau'>Eventos</h2>
+        <h2 className='ñau'>Publicaciones que has realizado</h2>
         {isLoadingEvents ? (
           <p></p>
         ) : (
           <div className="posts">
-            {events.filter(event => event.tag === "Eventos").length === 0 ? (
-              <p>No hay eventos disponibles.</p>
+            {events.filter(event => event.tag === "Noticias" || event.tag === "Poemas" || event.tag === "Eventos").length === 0 ? (
+              <p>No tienes publicaciones creadas.</p>
             ) : (
               events
-                .filter(event => event.tag === "Eventos")
+                .filter(event => (event.tag === "Noticias" || event.tag === "Poemas" || event.tag === "Eventos") )
                 .map((event, index) => (
                   <div key={index} className="post-card">
                     {event.image && (
@@ -192,6 +211,11 @@ export const EventosPage = () => {
                         <img src={event.image} alt="Post" />
                       </div>
                     )}
+                    <div className="post-card-actions" key={event.id}>
+                      <a className="edit-btn" href={`/EditarPublicacion/${event.id}`}>✏️</a>
+                      <button className="delete-btn" onClick={() => handleDelete(event)}>🗑️</button>
+                    </div>
+
                     <div className="post-card-body">
                       <small>
                         {event.start
@@ -219,31 +243,16 @@ export const EventosPage = () => {
             )}
           </div>
         )}
-      <div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-      </div>
+        
 
       {/* Modal */}
       {modalOpen && selectedEvent && (
         <div className="modal-overlay">
           <div className="modal-content">
             <h2>{selectedEvent.titulo}</h2>
-             {/* ✅ Mostrar la imagen correctamente */}
-              {selectedEvent.imagenUrl && (
-                <img src={selectedEvent.imagenUrl} alt="Imagen del evento" />
-              )}
+            {selectedEvent.imagenUrl && (
+              <img src={selectedEvent.imagenUrl} alt="Imagen del evento" />
+            )}
             <p><strong></strong> {selectedEvent.descripcion}</p>
             <p><strong>Tag:</strong> {selectedEvent.tag}</p>
             <p><strong>Autor:</strong> {selectedEvent.user?.nombre || "Desconocido"}</p>
@@ -252,8 +261,25 @@ export const EventosPage = () => {
           </div>
         </div>
       )}
+
     </div>
-      
+    <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+    </div>
+
+
       {/* Footer */}
       <footer className="bg-dark text-white text-center py-3 mt-auto">
         <div className="mb-2">

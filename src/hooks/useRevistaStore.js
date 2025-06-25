@@ -22,9 +22,19 @@ export const useRevistaStore = () => {
   const startSavingEvent = async (revistaEvent) => {
     try {
         if (revistaEvent._id) {
-            await revistaApi.put(`/events/${revistaEvent.id}`, revistaEvent);
-            dispatch(onUpdateEvent({ ...revistaEvent, user }));
-            return;
+          console.log("🛠 Editando evento:", revistaEvent);
+
+          const dataToSend = {
+            titulo: revistaEvent.titulo,
+            descripcion: revistaEvent.descripcion,
+            tag: revistaEvent.tag,
+            imagenUrl: revistaEvent.imagenUrl,
+          };
+
+          const { data } = await revistaApi.put(`/events/${revistaEvent._id}`, dataToSend);
+
+          dispatch(onUpdateEvent({ ...data.evento, user }));
+          return;
         }
 
         let imagenUrl = "";
