@@ -112,11 +112,6 @@ export const RegisterPage = () => {
                             </a>
                             </li>
                             <li>
-                            <a className="dropdown-item" href="/private-session">
-                                Configuraciones
-                            </a>
-                            </li>
-                            <li>
                             <hr className="dropdown-divider" />
                             </li>
                             <li>

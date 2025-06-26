@@ -8,3 +8,4 @@ export * from './pages/VerPostPage';
 export * from './components/EditarPublicacion';
 export * from './components/PerAdmin';
 export * from './pages/CambioContra';
+export * from './pages/RestaurarContra';

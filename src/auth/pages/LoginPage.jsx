@@ -125,11 +125,6 @@ export const LoginPage = () => {
                         </a>
                         </li>
                         <li>
-                        <a className="dropdown-item" href="/private-session">
-                            Configuraciones
-                        </a>
-                        </li>
-                        <li>
                         <a className="dropdown-item" href="/preferences">
                             Modo Dark
                         </a>

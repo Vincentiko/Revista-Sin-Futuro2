@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { FaInstagram } from 'react-icons/fa';
-import './RevistaPage.css';
-import Swal from 'sweetalert2';
 import { useAuthStore } from '../../hooks';
+import './RevistaPage.css';
 
-export const CambioContra = () => {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+export const RestaurarContra = () => {
+  const { token } = useParams();
+  const navigate = useNavigate();
+  const [nuevaPassword, setNuevaPassword] = useState("");
+  const [confirmacion, setConfirmacion] = useState("");
   const { status, user, startLogout } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const adminUid = import.meta.env.VITE_ADMIN_UID;
@@ -16,31 +19,35 @@ export const CambioContra = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email) {
-      return Swal.fire('Error', 'Por favor ingresa un correo electrónico', 'error');
+    if (nuevaPassword.length < 6) {
+      return Swal.fire("Error", "La contraseña debe tener al menos 6 caracteres", "error");
+    }
+
+    if (nuevaPassword !== confirmacion) {
+      return Swal.fire("Error", "Las contraseñas no coinciden", "error");
     }
 
     try {
-      const resp = await fetch('http://localhost:4000/api/auth/solicitar-reset', {
-        method: 'POST',
+      const resp = await fetch(`http://localhost:4000/api/auth/reset-password/${token}`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ nuevaPassword }),
       });
 
       const body = await resp.json();
-      console.log("📩 Respuesta del backend:", body);
 
       if (body.ok) {
-        setSubmitted(true);
-        Swal.fire('Éxito', 'Si tu correo está registrado, te enviaremos un enlace para restaurar tu contraseña.', 'success');
+        Swal.fire("Éxito", body.msg, "success").then(() => {
+          navigate("/auth");
+        });
       } else {
-        Swal.fire('Error', body.msg || 'Hubo un problema', 'error');
+        Swal.fire("Error", body.msg || "Hubo un problema", "error");
       }
     } catch (error) {
-      console.error("❌ Error en petición:", error);
-      Swal.fire('Error', 'Hubo un problema al procesar tu solicitud.', 'error');
+      console.error("❌ Error al enviar nueva contraseña:", error);
+      Swal.fire("Error", "Hubo un problema al procesar tu solicitud", "error");
     }
   };
 
@@ -130,29 +137,35 @@ export const CambioContra = () => {
 
       {/* Contenido principal */}
       <div className="container my-5" style={{ maxWidth: "500px" }}>
-        <h2 className="text-center mb-4">Recuperar Contraseña</h2>
+        <h2 className="text-center mb-4">Establecer nueva contraseña</h2>
 
-        {!submitted ? (
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">Correo electrónico</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                placeholder="tucorreo@ejemplo.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" className="btn btn-primary w-100">Enviar enlace de recuperación</button>
-          </form>
-        ) : (
-          <div className="alert alert-success text-center" role="alert">
-            Si tu correo está registrado, te hemos enviado un enlace para recuperar tu contraseña.
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="nuevaPassword" className="form-label">Nueva contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              id="nuevaPassword"
+              placeholder="Nueva contraseña"
+              value={nuevaPassword}
+              onChange={(e) => setNuevaPassword(e.target.value)}
+              required
+            />
           </div>
-        )}
+          <div className="mb-3">
+            <label htmlFor="confirmacion" className="form-label">Confirmar contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              id="confirmacion"
+              placeholder="Confirmar contraseña"
+              value={confirmacion}
+              onChange={(e) => setConfirmacion(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-success w-100">Restaurar contraseña</button>
+        </form>
       </div>
 
       {/* Footer */}

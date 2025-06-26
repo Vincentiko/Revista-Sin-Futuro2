@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { LoginPage, RegisterPage } from "../auth";
-import { CrearPublicacion, EventosPage, NoticiasPage, PoemasPage, RevistaPage, Perfil, EditarPublicacion, PerAdmin, CambioContra } from "../revista";
+import { CrearPublicacion, EventosPage, NoticiasPage, PoemasPage, RevistaPage, Perfil, EditarPublicacion, PerAdmin, CambioContra, RestaurarContra } from "../revista";
 import { useAuthStore } from "../hooks";
 import { useEffect } from "react";
 
@@ -37,6 +37,7 @@ export const AppRouter = () => {
         <Route path="/auth/*" element={<LoginPage/>}/>
         <Route path="/create/*" element={<RegisterPage/>}/>
         <Route path="/cambioContra/*" element={<CambioContra/>}/>
+        <Route path="/restaurar-contra/:token" element={<RestaurarContra />} />
 
         
 

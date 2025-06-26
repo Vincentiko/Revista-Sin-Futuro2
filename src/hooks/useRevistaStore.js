@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useRevistaStore = () => {
   const dispatch = useDispatch();
-  const { events, activeEvent, isLoadingEvents } = useSelector((state) => state.calendar);
+  const { events, isLoadingEvents } = useSelector((state) => state.calendar);
   const {user} = useSelector(state => state.auth);
   const navigate = useNavigate();
 
@@ -21,71 +21,64 @@ export const useRevistaStore = () => {
 
   const startSavingEvent = async (revistaEvent) => {
     try {
-        if (revistaEvent._id) {
-          console.log("🛠 Editando evento:", revistaEvent);
+      if (revistaEvent._id) {
+        console.log("🛠 Editando evento:", revistaEvent);
 
-          const dataToSend = {
-            titulo: revistaEvent.titulo,
-            descripcion: revistaEvent.descripcion,
-            tag: revistaEvent.tag,
-            imagenUrl: revistaEvent.imagenUrl,
-          };
-
-          const { data } = await revistaApi.put(`/events/${revistaEvent._id}`, dataToSend);
-
-          dispatch(onUpdateEvent({ ...data.evento, user }));
-          return;
-        }
-
-        let imagenUrl = "";
-
-        // 🔹 Subir imagen a Cloudinary solo si se ha seleccionado una
-        if (revistaEvent.imagen instanceof File) {
-            try {
-                const formData = new FormData();
-                formData.append("file", revistaEvent.imagen);
-                formData.append("upload_preset", "revista-sin-futuro"); 
-                
-                const res = await fetch("https://api.cloudinary.com/v1_1/dqsmeb8xb/image/upload", {
-                    method: "POST",
-                    body: formData
-                });
-
-                if (!res.ok) throw new Error("Error al subir imagen");
-
-                const cloudinaryData = await res.json();
-                imagenUrl = cloudinaryData.secure_url;
-
-                Swal.fire({
-                  title: "La publicación ha sido creada",
-                  icon: "success",
-                  draggable: true
-                }).then(() => {
-                  navigate("/");  // Reemplaza "/nueva-ruta" con la ruta a la que quieres ir
-                });
-                
-
-            } catch (uploadError) {
-                console.error("❌ Error al subir imagen:", uploadError);
-            }
-        }
-
-        // 🔹 Verifica que `imagenUrl` se asigna correctamente antes de enviar la petición
-        const dataToSend = { 
-            ...revistaEvent, 
-            imagenUrl 
+        const dataToSend = {
+          titulo: revistaEvent.titulo,
+          descripcion: revistaEvent.descripcion,
+          tag: revistaEvent.tag,
+          imagenUrl: revistaEvent.imagenUrl,
         };
-        console.log("📩 Datos que se enviarán al backend:", dataToSend); // 👀 Verifica si imagenUrl está vacío aquí
 
-        // 🔹 Enviar la URL de la imagen junto con los otros datos
-        const { data } = await revistaApi.post('/events', dataToSend);
+        const { data } = await revistaApi.put(`/events/${revistaEvent._id}`, dataToSend);
+        dispatch(onUpdateEvent({ ...data.evento, user }));
+        return;
+      }
 
-        dispatch(onAddNewEvent({ ...revistaEvent, _id: data.evento.id, user, imagenUrl }));
+      // 🔹 1. Subir imagen si existe
+      let imagenUrl = "";
+      if (revistaEvent.imagen instanceof File) {
+        const formData = new FormData();
+        formData.append("file", revistaEvent.imagen);
+        formData.append("upload_preset", "revista-sin-futuro");
+
+        const res = await fetch("https://api.cloudinary.com/v1_1/dqsmeb8xb/image/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        if (!res.ok) throw new Error("Error al subir imagen");
+        const cloudinaryData = await res.json();
+        imagenUrl = cloudinaryData.secure_url;
+      }
+
+      const dataToSend = {
+        titulo: revistaEvent.titulo,
+        descripcion: revistaEvent.descripcion,
+        tag: revistaEvent.tag,
+        imagenUrl,
+        start: new Date(revistaEvent.start).toISOString(),
+      };
+
+
+      const { data } = await revistaApi.post('/events', dataToSend);
+      dispatch(onAddNewEvent({ ...data.evento, user }));
+
+      Swal.fire({
+        title: "La publicación ha sido creada",
+        icon: "success",
+      }).then(() => {
+        navigate("/");
+      });
+
     } catch (error) {
-        console.error("Error al guardar evento:", error);
-        Swal.fire('Error al guardar', error.response?.data?.msg || "Ocurrió un error", 'error');
+      console.error("❌ Error al guardar evento:", error);
+      Swal.fire("Error", error.response?.data?.msg || "Ocurrió un error", "error");
     }
-};
+  };
+
+
 
 
 
